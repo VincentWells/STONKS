@@ -1,0 +1,30 @@
+3M			NYSE	NYSE: MMM
+American Express	NYSE	NYSE: AXP
+Apple Inc.		NASDAQ	AAPL
+Boeing	NYSE		NYSE: BA
+Caterpillar Inc.	NYSE	NYSE: CAT
+Chevron Corporation	NYSE	NYSE: CVX
+Cisco Systems		NASDAQ	CSCO
+The Coca-Cola Company	NYSE	NYSE: KO
+Dow Inc.		NYSE	NYSE: DOW
+ExxonMobil		NYSE	NYSE: XOM
+Goldman Sachs		NYSE	NYSE: GS
+The Home Depot		NYSE	NYSE: HD
+IBM			NYSE	NYSE: IBM
+Intel			NASDAQ	INTC
+Johnson & Johnson	NYSE	NYSE: JNJ
+JPMorgan Chase		NYSE	NYSE: JPM
+McDonald's		NYSE	NYSE: MCD
+Merck & Co.		NYSE	NYSE: MRK
+Microsoft		NASDAQ	MSFT
+Nike			NYSE	NYSE: NKE
+Pfizer			NYSE	NYSE: PFE
+Procter & Gamble	NYSE	NYSE: PG
+The Travelers Companies	NYSE	NYSE: TRV
+UnitedHealth Group	NYSE	NYSE: UNH
+United Technologies	NYSE	NYSE: UTX
+Verizon	NYSE		NYSE: VZ
+Visa Inc.		NYSE	NYSE: V	
+Walmart	NYSE		NYSE: WMT
+Walgreens Boots Alliance	NASDAQ	WBA
+The Walt Disney Company	NYSE	NYSE: DIS
