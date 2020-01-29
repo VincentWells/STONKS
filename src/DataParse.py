@@ -1,17 +1,18 @@
 # import from DataGather?
-years = range(2009, 2019)
-quarters = ["q1", "q2", "q3", "q4"]
-
+# years = range(2009, 2019)
+years = [2019]
+# quarters = ["q1", "q2", "q3", "q4"]
+quarters = ["q4"]
 # Might be simpler to build SQL database and run query
 all_data = []
-tag_list = []
+tag_list = ["Revenues", "Assets", "AssetsCurrent", "AssestsNoncurrent", "Liabilities", "LiabilitiesCurrent", "LiabilitiesNoncurrent", "LongTermDebtCurrent", "LongTermDebtNoncurrrent"]
 for year in years:
     for quarter in quarters:
         dir_addr = '../data/' + str(year) + quarter
         company_to_adsh = {}
         with open(dir_addr + '/sub.tsv', 'r') as f:
             next(f)
-            for line in enumerate(f):
+            for _, line in enumerate(f):
                 line_list = line.split('\t')
                 # adsh column
                 adsh = line_list[0]
@@ -21,7 +22,7 @@ for year in years:
         with open(dir_addr + '/num.tsv', 'r') as f:
             next(f)
             quarter_data = {}
-            for line in enumerate(f):
+            for _, line in enumerate(f):
                 line_list = line.split('\t')
 
                 # tag column
@@ -32,11 +33,9 @@ for year in years:
 
                 name = company_to_adsh[line_list[0]]
                 if tag in tag_list:
-                    if name in quarter_data:
+                    if name not in quarter_data:
                         quarter_data[name] = [0] * len(tag_list)
                     quarter_data[name][tag_list.index(tag)] = val
             all_data.append(quarter_data)
-
-
-
-
+print(all_data)
+# TODO: add functionality to save queried data to CSV file(s) to avoid recomputation
