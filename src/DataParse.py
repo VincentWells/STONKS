@@ -2,9 +2,6 @@
 years = range(2009, 2019)
 quarters = ["q1", "q2", "q3", "q4"]
 
-
-# theory: don't need to read all sub.tsv files, just the last one, as long as no company has gone out of business
-
 # Might be simpler to build SQL database and run query
 all_data = []
 tag_list = []
