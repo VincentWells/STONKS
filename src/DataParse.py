@@ -5,7 +5,7 @@ quarters = ["q1", "q2", "q3", "q4"]
 
 # Might be simpler to build SQL database and run query
 all_data = []
-tag_list = ["Revenues", "Assets", "AssetsCurrent", "AssestsNoncurrent", "Liabilities", "LiabilitiesCurrent", "LiabilitiesNoncurrent", "LongTermDebtCurrent", "LongTermDebtNoncurrrent"]
+tag_list = ["Revenues", "Assets", "AssetsCurrent", "AssestsNoncurrent", "Liabilities", "LiabilitiesCurrent", "LiabilitiesNoncurrent", "LongTermDebtCurrent"]
 
 for year in years:
     for quarter in quarters:
@@ -44,6 +44,6 @@ out_addr = "../data/output.csv"
 with open (out_addr, 'w') as o:
     for i in range(0, len(years) * len(quarters)):
         for company in all_data[i]:
-            line = [years[i // 4], quarters[i % 4], company, all_data[i][company]]
+            line = [years[i // 4], quarters[i % 4], company.replace(',', ''), *all_data[i][company]]
             o.write(",".join(str(v) for v in line) + '\n')
 
