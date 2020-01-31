@@ -1,16 +1,17 @@
 # import from DataGather?
-# years = range(2009, 2019)
-years = [2019]
-# quarters = ["q1", "q2", "q3", "q4"]
-quarters = ["q4"]
+years = range(2009, 2020)
+
+quarters = ["q1", "q2", "q3", "q4"]
+
 # Might be simpler to build SQL database and run query
 all_data = []
 tag_list = ["Revenues", "Assets", "AssetsCurrent", "AssestsNoncurrent", "Liabilities", "LiabilitiesCurrent", "LiabilitiesNoncurrent", "LongTermDebtCurrent", "LongTermDebtNoncurrrent"]
+
 for year in years:
     for quarter in quarters:
         dir_addr = '../data/' + str(year) + quarter
         company_to_adsh = {}
-        with open(dir_addr + '/sub.tsv', 'r') as f:
+        with open(dir_addr + '/sub.tsv', 'r', encoding='utf-8') as f:
             next(f)
             for _, line in enumerate(f):
                 line_list = line.split('\t')
@@ -19,11 +20,11 @@ for year in years:
                 # name column
                 name = line_list[2]
                 company_to_adsh[adsh] = name
-        with open(dir_addr + '/num.tsv', 'r') as f:
+        with open(dir_addr + '/num.tsv', 'r', encoding='utf-8', errors='ignore') as f:
             next(f)
             quarter_data = {}
             for _, line in enumerate(f):
-                line_list = line.split('\t')
+                line_list = line.strip().split('\t')
 
                 # tag column
                 tag = line_list[1]
@@ -37,5 +38,12 @@ for year in years:
                         quarter_data[name] = [0] * len(tag_list)
                     quarter_data[name][tag_list.index(tag)] = val
             all_data.append(quarter_data)
-print(all_data)
-# TODO: add functionality to save queried data to CSV file(s) to avoid recomputation
+
+# write data to a single .csv file for easier use in TensorFlow & memoization
+out_addr = "../data/output.csv"
+with open (out_addr, 'w') as o:
+    for i in range(0, len(years) * len(quarters)):
+        for company in all_data[i]:
+            line = [years[i // 4], quarters[i % 4], company, all_data[i][company]]
+            o.write(",".join(str(v) for v in line) + '\n')
+
