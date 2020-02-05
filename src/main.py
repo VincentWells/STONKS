@@ -1,25 +1,33 @@
-import tensorflow as tf
-import pathlib
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-import glob
+import DataGather
+import DataParse
+import DataAnalyze
+import argparse as ap
 
 
-dow_jones = ["MMM",  "AXP",  "AAPL", "BA", "CAT", "CVX", "CSCO", "KO", "DIS", "DOW", "XOM", "GS", "HD", "IBM", "INTC", "JNJ", "JPM", "MCD", "MRK", "MSFT", "NKE", "PFE", "PG", "TRV", "UTX", "UNH", "VZ",  "V", "WMT", "WBA"]
+def main():
+    arg_parser = ap.ArgumentParser(description='')
+    arg_parser.add_argument('--mode', '-m', choices=['gather', 'parse', 'analyze', 'all'], default='all', nargs='?',
+                            help='gather, or parse, or analyze data, or do all three', action="store_true")
+    arg_parser.add_argument('--help', '-h', help='usage options', action=arg_parser.print_help)
+    args = arg_parser.parse_args()
+    mode = args.mode
+    if mode == 'all':
+        dg = DataGather()
+        dg.run()
 
-for company in dow_jones:
+        dp = DataParse()
+        dp.run()
 
-    #create list of all records for given company
-    file_list = []
-    for file in glob.glob("../data/{}*.csv".format(company)):
-        file_list.append(file)
+        da = DataAnalyze()
+        da.run()
+    elif mode == 'gather':
+        dg = DataGather()
+        dg.run()
+    elif mode == 'parse':
+        dp = DataParse()
+        dp.run()
+    elif mode == 'analyze':
+        da = DataAnalyze()
+        da.run()
+    print(args)
 
-    #read data from each record
-    master_dataset = tf.data.Dataset.from_tensor_slices([])
-    for file_path in file_list:
-        dataset = tf.data.experimental.make_csv_dataset(file_path, batch_size=100, label_name=LABEL_COLUMN, na_value="?", num_epochs=1, ignore_errors=True)
-        master_dataset.concatenate(dataset)
-
-
-    #predict future trends for given company
