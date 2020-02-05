@@ -1,6 +1,6 @@
 # import from DataGather?
 import datetime
-years = range(2009, 2020)
+years = range(2009, 2018)
 quarter_names = ["q1", "q2", "q3", "q4"]
 
 
@@ -101,16 +101,15 @@ for cik in cik_to_tickers:
 print("* Writing to output.csv")
 out_addr = "../data/output.csv"
 with open (out_addr, 'w') as o:
-    for i in range(0, len(years) * len(quarter_names)):
+    for i in range(0, (len(years) - 1)* len(quarter_names)):
         for cik in all_data[i]:
             try:
                 ticker = cik_to_tickers[cik]
                 tag_results = all_data[i][cik]
-                try:
-                    company_qtr_price = company_qtr_price_dict[ticker][i]
-                except IndexError:
-                    company_qtr_price = 0
-                line = [years[i // 4], quarter_names[i % 4], ticker, *tag_results, company_qtr_price]
+                company_qtr_price = company_qtr_price_dict[ticker][i]
+                future_qtr_price = company_qtr_price_dict[ticker][i + 4]
+                company_qtr_price = 0
+                line = [years[i // 4], quarter_names[i % 4], ticker, *tag_results, company_qtr_price, future_qtr_price]
                 o.write(",".join(str(v) for v in line) + '\n')
-            except (KeyError, TypeError):
+            except (KeyError, TypeError, IndexError):
                 continue
