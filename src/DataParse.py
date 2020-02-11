@@ -108,6 +108,7 @@ class Parser:
         print("* Writing to output.csv")
         out_addr = "../data/output.csv"
         with open (out_addr, 'w') as o:
+            o.write(",".join(["year", "quarter", "ticker", *self.tag_list, "current_price", "future_price"]))
             for i in range(0, (len(years) - 1)* len(quarter_names)):
                 for cik in self.all_data[i]:
                     try:
